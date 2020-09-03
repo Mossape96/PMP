@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+<div role="main" class="container">
+ {% if messages %}
+        <ul class="messages">
+               {% for message in messages %}
+                     <li {% if message.tags %}
+                         class="{{ message.tags }}"
+                         {% endif %} > {{ message }} </li>
+               {% endfor %}
+       </ul>
+  {% endif %}
+   <!-- <div class="jumbotron"> -->
+
+
+<div class="row">
+
+   <div class="col-sm-2" >
+       <br>
+    <br> <br><br>
+       <a href="{% url 'transaction_history' %}"><div class="btn btn-warning mybutton" >Transactions</div></a><br>
+       <br><br><br><br>
+       <form method='POST'  action=""> {% csrf_token %}
+                {{ form|crispy }}
+        <input class="btn btn-primary mybutton" type="submit" value='Search'/>
+</form><br><br>
+
+      <a href="{% url 'add_new_client' %}"><div class="btn btn-success mybutton">New Account</div></a><br><br>
+
+      <br>
+</div>
+
+<div class="col-sm-10">
+<div class="header"> ACCOUNTS REGISTER<br></div>
+    <div class="display_table">
+
+        <table class='table'>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>PROPERTY</th>
+            <th>CLIENT NAME</th>
+            <th>CLIENT ACCOUNT</th>
+              <th>BALANCE</th>
+              <th>TIME STAMP</th>
+            <th>LAST UPDATED</th>
+
+          </tr>
+        </thead>
+      {% for instance in queryset %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td><a href="{% url 'update_properties' instance.id %}">{{instance.property}}</a></td>
+              <td>{{instance.client_name}} </a></td>
+              <td><a href="{% url 'client_account_detail' instance.id %}">{{instance.client_account}}</a></td>
+              <td>{{instance.units}} units </td>
+              <td>{{instance.timestamp}}</td>
+              <td>{{instance.last_updated}}</td>
+          </tr>
+      {% endfor %}
+         </table>
+         </div>
+       </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}

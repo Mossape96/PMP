@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ {% if messages %}
+        <ul class="messages">
+               {% for message in messages %}
+                     <li {% if message.tags %}
+                         class="{{ message.tags }}"
+                         {% endif %} > {{ message }}</li>
+               {% endfor %}
+       </ul>
+  {% endif %}
+
+
+<div class="row">
+
+    <div class="col-sm-2">
+        <br><br><br>
+    <a href="{% url 'admin:index' %}"><div class="btn btn-primary mybutton">New Property</div></a><br><br>
+    </div>
+
+<div class="col-sm-10">
+<div class="header"> PROPERTIES REGISTER <br></div>
+    <div class="display_table">
+
+        <table class='table'>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>PROPERTY</th>
+            <th>TRUST DEED NO</th>
+            <th>LOCATION</th>
+              <th>NOMINAL VALUE</th>
+              <th>TOTAL UNITS</th>
+
+
+          </tr>
+        </thead>
+      {% for instance in queryset %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.property_title}}</td>
+              <td>{{instance.trust_deed_no}} </td>
+              <td>{{instance.location}}</td>
+              <td>{{instance.nominal_value_per_unit}}</td>
+              <td>{{instance.total_units}}</td>
+
+          </tr>
+      {% endfor %}
+         </table>
+    </div>
+         </div>
+
+       </div>
+
+
+
+
+
+{% endblock content %}

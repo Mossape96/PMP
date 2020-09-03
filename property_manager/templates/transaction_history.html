@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<main class="row">
+
+    <div class="col-sm-2">
+        <br>
+        <br> <br><br>
+        <br>
+        <a href="{% url 'list_client_accounts' %}">
+            <div class="btn btn-warning mybutton">Accounts Register</div>
+        </a><br><br><br><br><br>
+        <form method='POST' action=""> {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-primary mybutton" type="submit" value='Search'/>
+        </form>
+        <br>
+        <a href="{% url 'export_pdf' %}">
+            <div class="btn btn-success mybutton">Get PDF</div>
+        </a>
+        <br><br><br>
+        <br>
+        <br>
+    </div>
+
+
+    <div class="col-sm-10">
+        <div class="header"> TRANSACTIONS <br></div>
+
+        <div class="display_table">
+            <table class='table'>
+                <thead>
+                <tr>
+
+                    <th>ID</th>
+                    <th>REF Number</th>
+                    <th>PROPERTY NAME</th>
+                    <th>CLIENT ACCOUNT</th>
+                    <th>CLIENT NAME</th>
+                    <th>DEPOSITS</th>
+                    <th>WITHDRAWALS</th>
+                    <th>BALANCE</th>
+                    <th>DEPOSIT MAKER</th>
+                    <th>WITHDRAWAL MAKER</th>
+                    <th>LAST UPDATED</th>
+                </tr>
+                </thead>
+                {% for instance in queryset %}
+                <tr>
+
+
+                    <td>{{instance.id}}</td>
+                    <td>{{forloop.counter}}zw100</td>
+                    <td>{{instance.property}}</td>
+                    <td>{{instance.client_account}}</td>
+                    <td>{{instance.client_name}}</td>
+                    <td>{{instance.units_deposited}}</td>
+                    <td>{{instance.units_withdrawn}}</td>
+                    <td>{{instance.units}}</td>
+                    <td>{{instance.deposit_authorised_by}}</td>
+                    <td>{{instance.withdrawal_authorised_by}}</td>
+                    <td>{{instance.last_updated}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+</main>
+
+
+{% endblock content %}

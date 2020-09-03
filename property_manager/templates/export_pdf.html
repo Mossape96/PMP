@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<div class='wrapper'>
+    <div class='header'>
+        <p class='title'> <H4>PROPERTY TRUST MANAGEMENT</H4> </p>
+    </div>
+    <div>
+
+        <div class='details'>
+            {% for instance in register%}
+            Client Account: {{registerhistory.client_account}} <br/>
+            Amount: <br/>
+            Date:
+            {% endfor %}
+            <hr class='hrItem'/>
+
+        </div>
+    </div>
+    <div class="display_table">
+
+        <table class='table'>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>PROPERTY</th>
+                <th>CLIENT NAME</th>
+                <th>CLIENT ACCOUNT</th>
+                <th>BALANCE</th>
+                <th>TIME STAMP</th>
+                <th>LAST UPDATED</th>
+
+            </tr>
+            </thead>
+            {% for register in instance %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><a href="{% url 'update_properties' instance.id %}">{{instance.property}}</a></td>
+                <td>{{register.client_name}} </a></td>
+                <td><a href="{% url 'client_account_detail' instance.id %}">{{instance.client_account}}</a></td>
+                <td>{{instance.units}} units</td>
+                <td>{{instance.timestamp}}</td>
+                <td>{{instance.last_updated}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</html>
